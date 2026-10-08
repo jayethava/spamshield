@@ -1,0 +1,245 @@
+{
+  "winner": "Multinomial Naive Bayes",
+  "dataset_stats": {
+    "total_samples": 5615,
+    "train_samples": 4492,
+    "test_samples": 1123,
+    "ham_count": 4837,
+    "spam_count": 778,
+    "vocabulary_size": 5000
+  },
+  "models": {
+    "naive_bayes": {
+      "model_name": "Multinomial Naive Bayes",
+      "accuracy": 0.9884238646482636,
+      "precision": 0.9735099337748344,
+      "recall": 0.9423076923076923,
+      "f1_score": 0.9576547231270358,
+      "confusion_matrix": {
+        "tn": 963,
+        "fp": 4,
+        "fn": 9,
+        "tp": 147,
+        "raw": [
+          [
+            963,
+            4
+          ],
+          [
+            9,
+            147
+          ]
+        ]
+      },
+      "classification_report": {
+        "0": {
+          "precision": 0.9907407407407407,
+          "recall": 0.9958634953464323,
+          "f1-score": 0.9932955131511089,
+          "support": 967.0
+        },
+        "1": {
+          "precision": 0.9735099337748344,
+          "recall": 0.9423076923076923,
+          "f1-score": 0.9576547231270358,
+          "support": 156.0
+        },
+        "accuracy": 0.9884238646482636,
+        "macro avg": {
+          "precision": 0.9821253372577876,
+          "recall": 0.9690855938270623,
+          "f1-score": 0.9754751181390724,
+          "support": 1123.0
+        },
+        "weighted avg": {
+          "precision": 0.988347146896857,
+          "recall": 0.9884238646482636,
+          "f1-score": 0.988344521838771,
+          "support": 1123.0
+        }
+      }
+    },
+    "logistic_regression": {
+      "model_name": "Logistic Regression",
+      "accuracy": 0.9795191451469278,
+      "precision": 0.9784172661870504,
+      "recall": 0.8717948717948718,
+      "f1_score": 0.9220338983050848,
+      "confusion_matrix": {
+        "tn": 964,
+        "fp": 3,
+        "fn": 20,
+        "tp": 136,
+        "raw": [
+          [
+            964,
+            3
+          ],
+          [
+            20,
+            136
+          ]
+        ]
+      },
+      "classification_report": {
+        "0": {
+          "precision": 0.9796747967479674,
+          "recall": 0.9968976215098242,
+          "f1-score": 0.9882111737570477,
+          "support": 967.0
+        },
+        "1": {
+          "precision": 0.9784172661870504,
+          "recall": 0.8717948717948718,
+          "f1-score": 0.9220338983050848,
+          "support": 156.0
+        },
+        "accuracy": 0.9795191451469278,
+        "macro avg": {
+          "precision": 0.9790460314675089,
+          "recall": 0.934346246652348,
+          "f1-score": 0.9551225360310662,
+          "support": 1123.0
+        },
+        "weighted avg": {
+          "precision": 0.979500108620182,
+          "recall": 0.9795191451469278,
+          "f1-score": 0.9790182485829548,
+          "support": 1123.0
+        }
+      }
+    }
+  },
+  "best_model": {
+    "model_name": "Multinomial Naive Bayes",
+    "accuracy": 0.9884238646482636,
+    "precision": 0.9735099337748344,
+    "recall": 0.9423076923076923,
+    "f1_score": 0.9576547231270358,
+    "confusion_matrix": {
+      "tn": 963,
+      "fp": 4,
+      "fn": 9,
+      "tp": 147,
+      "raw": [
+        [
+          963,
+          4
+        ],
+        [
+          9,
+          147
+        ]
+      ]
+    },
+    "classification_report": {
+      "0": {
+        "precision": 0.9907407407407407,
+        "recall": 0.9958634953464323,
+        "f1-score": 0.9932955131511089,
+        "support": 967.0
+      },
+      "1": {
+        "precision": 0.9735099337748344,
+        "recall": 0.9423076923076923,
+        "f1-score": 0.9576547231270358,
+        "support": 156.0
+      },
+      "accuracy": 0.9884238646482636,
+      "macro avg": {
+        "precision": 0.9821253372577876,
+        "recall": 0.9690855938270623,
+        "f1-score": 0.9754751181390724,
+        "support": 1123.0
+      },
+      "weighted avg": {
+        "precision": 0.988347146896857,
+        "recall": 0.9884238646482636,
+        "f1-score": 0.988344521838771,
+        "support": 1123.0
+      }
+    }
+  },
+  "top_spam_indicators": [
+    {
+      "word": "phone_num",
+      "weight": 6.153
+    },
+    {
+      "word": "claim",
+      "weight": 6.109
+    },
+    {
+      "word": "prize",
+      "weight": 5.949
+    },
+    {
+      "word": "150p",
+      "weight": 5.541
+    },
+    {
+      "word": "money_amount prize",
+      "weight": 5.465
+    },
+    {
+      "word": "18",
+      "weight": 5.433
+    },
+    {
+      "word": "guaranteed",
+      "weight": 5.399
+    },
+    {
+      "word": "money_amount cash",
+      "weight": 5.363
+    },
+    {
+      "word": "tone",
+      "weight": 5.312
+    },
+    {
+      "word": "000",
+      "weight": 5.28
+    },
+    {
+      "word": "ringtone",
+      "weight": 5.248
+    },
+    {
+      "word": "cs",
+      "weight": 5.24
+    },
+    {
+      "word": "money_amount 50",
+      "weight": 5.173
+    },
+    {
+      "word": "landline",
+      "weight": 5.15
+    },
+    {
+      "word": "awarded",
+      "weight": 5.104
+    },
+    {
+      "word": "150ppm",
+      "weight": 5.023
+    },
+    {
+      "word": "won money_amount",
+      "weight": 5.002
+    },
+    {
+      "word": "win money_amount",
+      "weight": 4.923
+    },
+    {
+      "word": "money_amount 000",
+      "weight": 4.895
+    },
+    {
+      "word": "collection",
+      "weight": 4.892
+    }
+  ]
+}

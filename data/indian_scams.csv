@@ -1,0 +1,44 @@
+label,text,category
+spam,"Dear SBI Customer, your YONO account has been suspended due to pending PAN KYC. Click http://sbi-kyc-update.xyz/verify immediately to avoid permanent deactivation.",fake_kyc
+spam,"HDFC Bank Alert: Your NetBanking account is locked. Please update your Aadhaar & PAN at http://hdfc-netbanking-kyc.top/login within 24 hours to avoid penalty.",fake_kyc
+spam,"Urgent ICICI Bank Notice: Your savings account has been put on hold due to missing KYC verification. Complete now at http://192.168.1.10/icici-kyc to resume transactions.",fake_kyc
+spam,"PNB Alert: Your debit card is blocked. Visit http://pnb-card-verification.xyz to update card credentials and unblock within 2 hours.",fake_kyc
+spam,"Dear Axis Bank user, your mobile banking is temporarily blocked. Verify your PAN card immediately on http://axis-mobile-kyc.top to reactivate.",fake_kyc
+spam,"Kotak Mahindra Bank Notice: Complete your pending re-KYC before midnight or your bank account will be frozen. Update link: http://kotak-kyc-desk.xyz",fake_kyc
+spam,"Bank of Baroda Alert: Unfreeze your account by submitting Aadhaar details online at http://bob-aadhaar-update.buzz or visit branch.",fake_kyc
+spam,"Dear Customer, your PayTM Payments Bank wallet is blocked. Click http://paytm-kyc-now.top to update KYC and withdraw your funds.",fake_kyc
+spam,"Congratulations! Your mobile number has won Rs 25,00,000 in KBC Kaun Banega Crorepati WhatsApp Lucky Draw. Call Rana Pratap Singh on +919876543210 to claim your prize.",lottery
+spam,"You are selected as lucky winner of Rs 10,00,000 in Reliance Jio 5G Mega Lottery. Contact manager Mr. Rajesh Kumar on WhatsApp 9811223344 with reference code KBC789.",lottery
+spam,"Amazon Diwali Mega Contest: Congratulations, you have won an iPhone 15 Pro Max & Rs 50,000 cash voucher! Claim your prize now at http://amazon-festive-bonus.xyz",lottery
+spam,"Dear Airtel user, your SIM card won Rs 15 Lakh in Tata Safari Bumper Lucky Draw. Pay processing fee of Rs 2500 to release prize money. Call 9765432109.",lottery
+spam,"Flipkart Big Billion Days: You are the 1st prize winner of Rs 5,00,000 cash reward. Click http://flipkart-winner-claim.top to claim before offer expires.",lottery
+spam,"Your mobile number +9198****** won cash prize of Rs 50 Lakhs in Indian Oil mega draw. WhatsApp your details to claiming officer at +918765432100.",lottery
+spam,"Your OTP for debit transaction of Rs 49,999 on Flipkart is 849201. If this was not requested by you, immediately share this OTP with fraud helpline 9123456789 to cancel transaction.",otp_fraud
+spam,"ALERT: An unauthorized transaction of Rs 35,000 is initiated on your HDFC credit card. Send the 6-digit OTP received on your phone to cancel this charge immediately.",otp_fraud
+spam,"Urgent: Someone is trying to access your Google & NetBanking account from Moscow. Call 9876543211 and share the security OTP to verify your identity.",otp_fraud
+spam,"Dear User, to reverse pending unauthorized debit of Rs 18,500, please verify OTP 492011 with customer care executive calling you right now.",otp_fraud
+spam,"SBI Card Security: Fraudulent swipe of Rs 62,000 detected. Reply with OTP or call our toll-free support at 9845123456 to block debit.",otp_fraud
+spam,"Dear consumer, your electricity power will be disconnected tonight at 9:30 PM because your previous month bill was not updated. Please call electricity officer at 9876543210 immediately.",electricity_bill
+spam,"Alert: Torrent Power supply will be disconnected at 8:00 PM due to pending electricity bill payment. Contact sub-division officer on WhatsApp 9823456789.",electricity_bill
+spam,"BESCOM / TNEB Notice: Your domestic power connection is marked for disconnection today. Pay bill immediately or contact junior engineer on 9812345678 to stop cut.",electricity_bill
+spam,"Mahavitaran Bill Alert: Electricity supply to your meter will be disconnected today. Update bill status with electrical nodal officer on 9988776655.",electricity_bill
+spam,"Urgent Power Notice: Last warning for unpaid power tariff. Your electricity connection will be cut off by 9:00 PM. Call helpline 9786543210 now.",electricity_bill
+spam,"Part time job offer: Work from home daily 1-2 hours and earn Rs 3000 to Rs 8000 daily by liking YouTube videos and Google reviews. Telegram @hr_priya_recruiter",job_scam
+spam,"Amazon India hiring freshers for Remote Data Entry & Typing Jobs. Salary Rs 45,000/month. Laptop & WiFi allowance provided. Registration fee Rs 499 only. Apply http://amz-jobs-portal.top",job_scam
+spam,"Congratulations! You are shortlisted for Indigo Airlines Ground Staff and Cabin Crew. Salary 38,000. Pay refundable uniform deposit Rs 1,500 at http://indigo-careers.xyz",job_scam
+spam,"Earn Rs 1000 every 15 minutes by reviewing products online on Meesho. No qualification required. WhatsApp HR Sneha on +919654321876 to start immediately.",job_scam
+spam,"Urgent requirement for Work From Home online packaging and captcha typing. Weekly payment Rs 12,000 directly to UPI. Contact manager on Telegram @EarnFastIndia",job_scam
+spam,"Tata Consultancy Services (TCS) Direct Campus Selection without exam! Pay processing fee Rs 2,000 for appointment letter. Apply now at http://tcs-recruitment-desk.xyz",job_scam
+spam,"Google India HR: We are offering high paying part-time tasks. Like 5 videos and earn Rs 500 instantly. Join our official Telegram group t.me/google_task_earning",job_scam
+ham,"Hi Rahul, are we meeting for the project discussion in library at 4 PM today? Let me know.",safe
+ham,"Your SBI OTP for login is 394812. Valid for 10 mins. Do not share this OTP with anyone, SBI never asks for OTP or confidential info.",safe
+ham,"Dear customer, your bill for Airtel broadband account 080449912 is Rs 943. Last date of payment is 15th Oct. Pay securely via Airtel Thanks app.",safe
+ham,"Swiggy: Your order from Biryani Blues is on the way! Delivery partner Manoj is arriving in 12 mins. Track in your Swiggy app.",safe
+ham,"Mom, I will be a little late from college today because of the lab experiment. Will reach home by 7:30 PM.",safe
+ham,"Your HDFC Bank credit card statement for statement cycle ending 05-Oct is generated. Total amount due Rs 4,520. Pay via netbanking.",safe
+ham,"Class Notice: Tomorrow's Computer Networks lecture by Prof. Sharma is rescheduled to 2:00 PM in Seminar Hall 2.",safe
+ham,"Zomato: Your order from Burger King has been delivered. Enjoy your meal! Please rate your delivery partner on the app.",safe
+ham,"Can you please email me the PDF of Machine Learning notes for Module 4? Need it for tomorrow's internals.",safe
+ham,"Dear Customer, your Uber ride is confirmed. Driver Suresh is arriving in a White Swift Dzire DL 01 AB 1234 with PIN 4821.",safe
+ham,"Hey, did you submit the assignment on the college portal? The deadline is midnight today.",safe
+ham,"IRCTC: Your ticket for Train 12952 (Tejas Rajdhani) is confirmed. PNR: 2458910234, Coach: B3, Berth: 42 (Lower). Happy Journey!",safe

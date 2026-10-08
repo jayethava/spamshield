@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Scan History - SpamShield{% endblock %}
+
+{% block content %}
+<div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h2>Scan History & Audit Log</h2>
+    <p>Comprehensive ledger of past analyzed messages with risk scores and classification verdicts.</p>
+  </div>
+  <div class="btn-group">
+    <a href="{{ url_for('history_download') }}" class="btn btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download CSV
+    </a>
+    <button type="button" id="clearHistoryBtn" class="btn btn-danger btn-sm">
+      Clear All History
+    </button>
+  </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="glass-card" style="padding: 1.25rem; margin-bottom: 1.75rem;">
+  <form method="GET" action="{{ url_for('history') }}" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+    <div style="flex: 2; min-width: 220px;">
+      <label class="form-label" style="margin-bottom: 0.2rem;">Search Keywords</label>
+      <input 
+        type="text" 
+        name="search" 
+        value="{{ search }}" 
+        class="form-input" 
+        placeholder="Search snippet, subject or text..."
+      >
+    </div>
+
+    <div style="flex: 1; min-width: 140px;">
+      <label class="form-label" style="margin-bottom: 0.2rem;">Verdict</label>
+      <select name="verdict" class="form-select">
+        <option value="">All Verdicts</option>
+        <option value="SAFE" {% if verdict == 'SAFE' %}selected{% endif %}>Safe</option>
+        <option value="SUSPICIOUS" {% if verdict == 'SUSPICIOUS' %}selected{% endif %}>Suspicious</option>
+        <option value="SPAM" {% if verdict == 'SPAM' %}selected{% endif %}>Spam</option>
+      </select>
+    </div>
+
+    <div style="flex: 1; min-width: 170px;">
+      <label class="form-label" style="margin-bottom: 0.2rem;">Category</label>
+      <select name="category" class="form-select">
+        <option value="">All Categories</option>
+        <option value="Fake KYC / Banking" {% if category == 'Fake KYC / Banking' %}selected{% endif %}>Fake KYC / Bank</option>
+        <option value="Lottery / Reward Scam" {% if category == 'Lottery / Reward Scam' %}selected{% endif %}>Lottery / Reward</option>
+        <option value="OTP Fraud" {% if category == 'OTP Fraud' %}selected{% endif %}>OTP Fraud</option>
+        <option value="Electricity Bill Disconnection" {% if category == 'Electricity Bill Disconnection' %}selected{% endif %}>Electricity Cut</option>
+        <option value="Fake Job Offer" {% if category == 'Fake Job Offer' %}selected{% endif %}>Fake Job</option>
+        <option value="Phishing / Account Theft" {% if category == 'Phishing / Account Theft' %}selected{% endif %}>Phishing</option>
+        <option value="Safe / Legitimate" {% if category == 'Safe / Legitimate' %}selected{% endif %}>Safe</option>
+      </select>
+    </div>
+
+    <div style="display: flex; gap: 0.5rem;">
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="{{ url_for('history') }}" class="btn btn-secondary">Reset</a>
+    </div>
+  </form>
+</div>
+
+<!-- History Table -->
+<div class="glass-card table-wrapper">
+  {% if records %}
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 140px;">Timestamp</th>
+        <th>Message Snippet</th>
+        <th style="width: 110px;">Verdict</th>
+        <th style="width: 100px;">Risk Score</th>
+        <th>Category</th>
+        <th style="width: 90px;">Links</th>
+        <th style="width: 120px; text-align: right;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in records %}
+      <tr id="row-{{ item.id }}">
+        <td style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">
+          {{ item.timestamp }}
+        </td>
+        <td>
+          {% if item.subject %}
+            <div style="font-weight: 600; font-size: 0.85rem; color: var(--primary);">
+              {{ item.subject }}
+            </div>
+          {% endif %}
+          <div style="color: var(--text-main); font-size: 0.88rem;">
+            {{ item.snippet }}
+          </div>
+        </td>
+        <td>
+          {% if item.verdict == 'SPAM' %}
+            <span class="badge badge-spam" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">SPAM</span>
+          {% elif item.verdict == 'SUSPICIOUS' %}
+            <span class="badge badge-suspicious" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">SUSPICIOUS</span>
+          {% else %}
+            <span class="badge badge-safe" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">SAFE</span>
+          {% endif %}
+        </td>
+        <td>
+          <strong style="{% if item.risk_score >= 65 %}color: var(--spam);{% elif item.risk_score >= 35 %}color: var(--suspicious);{% else %}color: var(--safe);{% endif %}">
+            {{ item.risk_score }}%
+          </strong>
+          <span style="font-size: 0.72rem; color: var(--text-muted); display: block;">
+            conf: {{ item.confidence }}%
+          </span>
+        </td>
+        <td>
+          <span class="badge-category" style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">
+            {{ item.category }}
+          </span>
+        </td>
+        <td>
+          {% if item.links_count > 0 %}
+            <span style="font-size: 0.82rem; font-weight: 600; {% if item.suspicious_links > 0 %}color: var(--spam);{% else %}color: var(--text-muted);{% endif %}">
+              🔗 {{ item.links_count }}
+            </span>
+          {% else %}
+            <span style="color: var(--text-dim); font-size: 0.8rem;">None</span>
+          {% endif %}
+        </td>
+        <td style="text-align: right;">
+          <button 
+            type="button" 
+            class="btn btn-secondary btn-sm view-details-btn" 
+            data-id="{{ item.id }}"
+            data-time="{{ item.timestamp }}"
+            data-subject="{{ item.subject }}"
+            data-message="{{ item.message | e }}"
+            data-verdict="{{ item.verdict }}"
+            data-score="{{ item.risk_score }}"
+            data-category="{{ item.category }}"
+            title="Inspect full text"
+          >
+            View
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-secondary btn-sm delete-btn" 
+            data-id="{{ item.id }}"
+            style="color: var(--spam); margin-left: 4px;"
+            title="Delete this record"
+          >
+            ✕
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">📂</div>
+    <h3>No Records Found</h3>
+    <p>No messages have been analyzed yet, or no results match the current search filters.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-top: 1rem;">
+      Analyze a Message Now
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Detail Inspection Modal -->
+<div id="detailModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Scan Record Details</h3>
+      <button type="button" class="modal-close" id="modalCloseBtn">&times;</button>
+    </div>
+    <div style="margin-bottom: 1rem; display: flex; gap: 0.75rem; align-items: center;">
+      <span id="modalVerdictBadge" class="badge"></span>
+      <span id="modalCategoryBadge" class="badge-category"></span>
+      <span id="modalTime" style="font-size: 0.8rem; color: var(--text-muted); margin-left: auto;"></span>
+    </div>
+    <div style="margin-bottom: 0.5rem; font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">
+      FULL MESSAGE TEXT:
+    </div>
+    <div id="modalMessageText" class="highlighted-box" style="margin-bottom: 1.25rem;">
+    </div>
+    <div style="display: flex; justify-content: flex-end;">
+      <button type="button" class="btn btn-secondary" id="modalCloseSecondary">Close</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Individual delete handler
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const id = btn.getAttribute('data-id');
+      if (confirm(`Are you sure you want to delete scan record #${id}?`)) {
+        try {
+          const res = await fetch(`/api/history/delete/${id}`, { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+            const row = document.getElementById(`row-${id}`);
+            if (row) row.remove();
+            showToast(`Record #${id} deleted.`);
+          }
+        } catch (err) {
+          showToast('Error deleting record.', 'error');
+        }
+      }
+    });
+  });
+
+  // Clear all handler
+  const clearBtn = document.getElementById('clearHistoryBtn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', async () => {
+      if (confirm('Are you sure you want to clear ALL past scan history? This action cannot be undone.')) {
+        try {
+          const res = await fetch('/api/history/clear', { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+            location.reload();
+          }
+        } catch (err) {
+          showToast('Error clearing history.', 'error');
+        }
+      }
+    });
+  }
+
+  // View details modal handler
+  const modal = document.getElementById('detailModal');
+  const modalClose = document.getElementById('modalCloseBtn');
+  const modalCloseSecondary = document.getElementById('modalCloseSecondary');
+  const modalVerdict = document.getElementById('modalVerdictBadge');
+  const modalCategory = document.getElementById('modalCategoryBadge');
+  const modalTime = document.getElementById('modalTime');
+  const modalText = document.getElementById('modalMessageText');
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalCloseSecondary) modalCloseSecondary.addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.querySelectorAll('.view-details-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const verdict = btn.getAttribute('data-verdict');
+      const category = btn.getAttribute('data-category');
+      const time = btn.getAttribute('data-time');
+      const msg = btn.getAttribute('data-message');
+      const score = btn.getAttribute('data-score');
+
+      modalVerdict.textContent = `${verdict} (${score}%)`;
+      modalVerdict.className = `badge badge-${verdict.toLowerCase()}`;
+      modalCategory.textContent = category;
+      modalTime.textContent = time;
+      modalText.textContent = msg;
+
+      modal.style.display = 'flex';
+    });
+  });
+</script>
+{% endblock %}

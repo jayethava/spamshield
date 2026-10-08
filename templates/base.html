@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SpamShield - Explainable SMS & Email Spam/Scam Detector{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <!-- Navigation Header -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>SpamShield</h1>
+          <span>Explainable AI Scam Detector</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li>
+          <a href="{{ url_for('index') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+            Check Message
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('bulk') }}" class="nav-link {% if request.path == '/bulk' %}active{% endif %}">
+            Bulk Scanner
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('history') }}" class="nav-link {% if request.path == '/history' %}active{% endif %}">
+            History
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('about') }}" class="nav-link {% if request.path == '/about' %}active{% endif %}">
+            About & Viva Guide
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="theme-toggle" aria-label="Toggle theme">
+          <span id="themeIcon">☀️</span>
+          <span id="themeText">Light</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Body -->
+  <main class="main-wrapper">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- App Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <strong>SpamShield v2.0</strong> — Explainable AI SMS & Email Scam Detection System
+        <br>
+        <span style="font-size: 0.8rem; opacity: 0.8;">
+          College Python Mini Project • Built with Flask, scikit-learn & TF-IDF
+        </span>
+      </div>
+      <div>
+        <span class="hero-tag" style="margin-bottom: 0;">
+          <span class="dot"></span> Engine Online (98.8% Accuracy)
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Center -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Local and fallback Chart.js scripts -->
+  <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

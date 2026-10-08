@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}About & Viva Presentation Guide - SpamShield{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="hero-tag">
+    <span class="dot"></span> Project Documentation & Viva Voce Guide
+  </div>
+  <h2>How SpamShield Works: Architecture & Explainability</h2>
+  <p>Educational breakdown of Natural Language Processing, TF-IDF vectorization, Multinomial Naive Bayes, and Explainable AI.</p>
+</div>
+
+<!-- Architecture Flowchart Card -->
+<div class="glass-card" style="padding: 2rem; margin-bottom: 2rem;">
+  <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">System Architecture & Data Flow</h3>
+  <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+    End-to-end pipeline from raw SMS/email input to model inference, explainability attribution, and threat mitigation.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center;">
+    <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📩</div>
+      <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem;">1. Input Preprocessing</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">
+        Regex normalization of URLs, emails, phone numbers, and currencies ($ / Rs / INR).
+      </div>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🧮</div>
+      <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem;">2. TF-IDF Vectorization</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">
+        Converts text into 5,000 statistical n-gram features (unigrams & bigrams) with sublinear scaling.
+      </div>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🤖</div>
+      <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem;">3. ML Classification</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">
+        Multinomial Naive Bayes computes class likelihoods P(Spam | Message) with Laplace smoothing.
+      </div>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔍</div>
+      <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem;">4. Explainable AI & Rules</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">
+        Extracts token log-odds differences, highlights high-risk words, scans URLs, and assigns categories.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Explanations Grid -->
+<div class="grid-2col" style="margin-bottom: 2rem;">
+  <!-- Section 1: TF-IDF -->
+  <div class="glass-card" style="padding: 1.75rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--primary);">
+      1. What is TF-IDF?
+    </h3>
+    <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
+      <strong>TF-IDF</strong> stands for <em>Term Frequency – Inverse Document Frequency</em>. In machine learning, computers cannot directly read words, so we must convert sentences into numerical feature vectors.
+    </p>
+    <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Term Frequency (TF):</strong> Measures how frequently a word appears inside the current message. If a word like <code>"winner"</code> appears 3 times in an SMS, its TF score is high.
+      </li>
+      <li>
+        <strong>Inverse Document Frequency (IDF):</strong> Penalizes universally common words like <code>"the"</code>, <code>"is"</code>, or <code>"at"</code> that appear everywhere, while amplifying rare, high-signal words like <code>"kyc"</code>, <code>"blocked"</code>, or <code>"crorepati"</code>.
+      </li>
+    </ul>
+    <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.82rem; border-left: 3px solid var(--primary);">
+      TF-IDF(t, d) = TF(t, d) × ln[(1 + N) / (1 + DF(t))] + 1
+    </div>
+  </div>
+
+  <!-- Section 2: Multinomial Naive Bayes -->
+  <div class="glass-card" style="padding: 1.75rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--primary);">
+      2. Why Multinomial Naive Bayes?
+    </h3>
+    <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
+      <strong>Naive Bayes</strong> is a probabilistic classifier based on Bayes' Theorem with the "naive" conditional independence assumption between features.
+    </p>
+    <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.82rem; border-left: 3px solid var(--primary); margin-bottom: 0.75rem;">
+      P(Spam | Message) ∝ P(Spam) × ∏ P(word_i | Spam)
+    </div>
+    <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted);">
+      <li style="margin-bottom: 0.4rem;">
+        <strong>Why it excels for spam:</strong> Word presence distributions are heavily skewed (words like "claim", "prize", "urgent" have astronomically higher probability in spam).
+      </li>
+      <li style="margin-bottom: 0.4rem;">
+        <strong>Laplace Smoothing (α = 0.1):</strong> Prevents zero-probability problems when a test message contains a word not present in a specific class during training.
+      </li>
+      <li>
+        <strong>Speed & Efficiency:</strong> Inference takes under 2 milliseconds on standard CPU hardware without GPU acceleration or cloud API dependencies.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 3: Explainable AI & Link Scanner -->
+<div class="grid-2col" style="margin-bottom: 2.5rem;">
+  <!-- Explainable AI -->
+  <div class="glass-card" style="padding: 1.75rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--spam);">
+      3. Explainable AI (XAI) Implementation
+    </h3>
+    <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
+      Instead of presenting the user with an inscrutable "black box" prediction, SpamShield calculates token-level attribution scores:
+    </p>
+    <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.82rem; border-left: 3px solid var(--spam); margin-bottom: 0.75rem;">
+      Log-Odds Impact(w) = log P(w | Spam) - log P(w | Ham)
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">
+      When this value is positive, the token statistically pulls the prediction towards Spam. SpamShield normalizes these values to dynamically scale the red highlight opacity in the browser, providing transparent insight into why the message was flagged.
+    </p>
+  </div>
+
+  <!-- Link Scanner -->
+  <div class="glass-card" style="padding: 1.75rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--suspicious);">
+      4. Cybersecurity Link Scanner Heuristics
+    </h3>
+    <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
+      Phishing attacks rely on fraudulent destination URLs. SpamShield's regex parser dissects every embedded hyperlink and evaluates:
+    </p>
+    <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted);">
+      <li style="margin-bottom: 0.35rem;">
+        <strong>Raw IP addresses:</strong> Legitimate financial portals use accredited domains, never raw IPs like <code>192.168.1.1</code>.
+      </li>
+      <li style="margin-bottom: 0.35rem;">
+        <strong>High-Risk TLDs:</strong> Domains registered under disposable or abuse-prone TLDs (<code>.xyz</code>, <code>.top</code>, <code>.buzz</code>).
+      </li>
+      <li style="margin-bottom: 0.35rem;">
+        <strong>Shortened Links:</strong> Obfuscated redirects via <code>bit.ly</code> or <code>tinyurl</code> concealing actual landing servers.
+      </li>
+      <li>
+        <strong>Credential Theft Keywords:</strong> Subdomains containing <code>kyc</code>, <code>verify</code>, or <code>netbanking</code> on third-party hosts.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Viva Voce Q&A Cheatsheet -->
+<div class="glass-card" style="padding: 2rem;">
+  <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+    <span style="font-size: 1.8rem;">🎓</span>
+    <div>
+      <h3 style="font-size: 1.3rem; margin-bottom: 0.2rem;">College Viva Voce / Presentation Q&A Cheatsheet</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Prepare for your viva presentation with these common external examiner questions and succinct answers.
+      </p>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+    <div style="background: var(--bg-surface); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <strong style="color: var(--primary); font-size: 0.95rem;">
+        Q1: Why did you choose Multinomial Naive Bayes over deep learning (e.g. LSTM / BERT)?
+      </strong>
+      <p style="font-size: 0.9rem; margin-top: 0.4rem; color: var(--text-muted);">
+        <strong>Answer:</strong> For short text like SMS messages (average 15-30 words), TF-IDF with Multinomial Naive Bayes achieves <strong>98.84% accuracy</strong> with near-zero latency (&lt;2ms) and runs on lightweight server hardware without GPU requirements. Deep transformers like BERT require heavy memory, slower inference, and significant training data to avoid overfitting on short text.
+      </p>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <strong style="color: var(--primary); font-size: 0.95rem;">
+        Q2: How does the application solve the "Black Box" problem of Machine Learning?
+      </strong>
+      <p style="font-size: 0.9rem; margin-top: 0.4rem; color: var(--text-muted);">
+        <strong>Answer:</strong> We implemented Explainable AI (XAI) using log-odds likelihood ratios. By extracting the log-probability differences between spam and ham classes for every token, SpamShield highlights exactly which words pushed the classification toward spam with variable color intensity and shows the top 5 trigger keywords.
+      </p>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <strong style="color: var(--primary); font-size: 0.95rem;">
+        Q3: What was the motivation for augmenting the UCI SMS dataset with Indian scam examples?
+      </strong>
+      <p style="font-size: 0.9rem; margin-top: 0.4rem; color: var(--text-muted);">
+        <strong>Answer:</strong> The classic UCI SMS dataset (from 2012) primarily features UK/Singapore text. Modern attacks in India target regional contexts like SBI YONO KYC updates, KBC lottery draws, electricity bill disconnections, and fake work-from-home tasks. Augmenting with <code>indian_scams.csv</code> ensures the model recognizes these modern localized fraud patterns.
+      </p>
+    </div>
+
+    <div style="background: var(--bg-surface); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <strong style="color: var(--primary); font-size: 0.95rem;">
+        Q4: How did you prevent False Positives on legitimate banking SMS?
+      </strong>
+      <p style="font-size: 0.9rem; margin-top: 0.4rem; color: var(--text-muted);">
+        <strong>Answer:</strong> We trained on balanced legitimate banking communications (such as genuine OTPs, monthly statements, and delivery confirmations) alongside scam messages. Scam messages almost always combine urgency with unverified external URLs or phone numbers to contact, whereas legitimate bank OTP alerts advise users never to share the code.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
